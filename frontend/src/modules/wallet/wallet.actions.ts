@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { getSavedWallets } from "../../services/Api";
+import { getSavedWallets, updateWalletFavorite } from "../../services/Api";
 
 export const loadWallets = () => {
   return (dispatch: Dispatch) => {
@@ -7,6 +7,18 @@ export const loadWallets = () => {
       dispatch({
         type: "SET_WALLETS",
         wallets,
+      });
+    });
+  };
+};
+
+export const setFavorite = (address: string, value: boolean) => {
+  return (dispatch: Dispatch) => {
+    updateWalletFavorite(address, value).then(() => {
+      dispatch({
+        type: "SAVE_FAVORITE",
+        address,
+        value,
       });
     });
   };

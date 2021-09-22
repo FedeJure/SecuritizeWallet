@@ -4,7 +4,7 @@ import { Dispatch } from "redux"
 import { Button, Form, Grid, Icon, List } from "semantic-ui-react"
 import { WalletCard } from "../components/WalletCard"
 import { UserWallet } from "../modules/wallet/UserWallet"
-import { loadWallets } from "../modules/wallet/wallet.actions"
+import { loadWallets, setFavorite } from "../modules/wallet/wallet.actions"
 import { getUserWallets } from "../modules/wallet/wallet.selectors"
 import { StoreState } from "../store"
 
@@ -16,28 +16,24 @@ const mapStateToProps = (state: StoreState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        loadWallets: () => loadWallets()(dispatch)
+        loadWallets: () => loadWallets()(dispatch),
+        setFavorite: (address: string, value: boolean) => setFavorite(address, value)(dispatch)
         // editUser: (user: User, image: File | null) => editUser(user, image)(dispatch)
     }
 }
 
 interface Payload {
     wallets: UserWallet[],
-    loadWallets: Function
+    loadWallets: Function,
+    setFavorite: (address: string, value: boolean) => void
 }
 
 export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
-    ({ wallets, loadWallets }: Payload) => {
+    ({ wallets, loadWallets, setFavorite }: Payload) => {
 
         useEffect(() => {
             loadWallets()
-            console.log(1)
-
         }, [])
-
-        useEffect(() => {
-            console.log(2)
-        }, [wallets])
 
         return <>
             <Grid columns={1} divided>
@@ -56,12 +52,9 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
                         </Form>
                     </Grid.Column>
                 </Grid.Row>
-
                 <Grid.Row>
                     <Grid.Column>
-
                         <List selection  >
-
                             {wallets.map(wallet =>
                                 <List.Item active={wallet.selected}>
                                     <List.Icon name='ethereum' size='large' verticalAlign='middle' />
@@ -70,13 +63,12 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
                                             address={wallet.address}
                                             favorite={wallet.favorite}
                                             old={wallet.old}
-                                            onSetFavorite={() => { }} />
+                                            onSetFavorite={() => { setFavorite(wallet.address, !wallet.favorite) }} />
                                     </List.Content>
                                 </List.Item>
                             )}
                         </List>
                     </Grid.Column>
-
                 </Grid.Row>
             </Grid>
         </>

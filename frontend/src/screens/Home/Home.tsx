@@ -5,7 +5,7 @@ const Home = () => {
     return <Grid columns={1} style={{height: "100vh"}}>
     <Grid.Row stretched>
       <Grid.Column>
-        <Segment style={{width: "40em"}}><WalletSection /></Segment>
+        <Segment style={{width: "45em"}}><WalletSection /></Segment>
       </Grid.Column>
     </Grid.Row>
   </Grid>
