@@ -12,7 +12,10 @@ export const WalletCard = ({ address, favorite, onSetFavorite, old }: Payload) =
     <Card fluid>
         <Card.Content textAlign="center">
             <Button
-                onClick={() => onSetFavorite()}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    onSetFavorite()
+                }}
                 floated="right"
                 icon={favorite ? "star" : "star outline"}
                 circular

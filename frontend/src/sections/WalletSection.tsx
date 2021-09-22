@@ -4,7 +4,7 @@ import { Dispatch } from "redux"
 import { Button, Form, Grid, Icon, List } from "semantic-ui-react"
 import { WalletCard } from "../components/WalletCard"
 import { UserWallet } from "../modules/wallet/UserWallet"
-import { loadWallets, setFavorite } from "../modules/wallet/wallet.actions"
+import { loadWallets, setFavorite, setSelected } from "../modules/wallet/wallet.actions"
 import { getUserWallets } from "../modules/wallet/wallet.selectors"
 import { StoreState } from "../store"
 
@@ -17,19 +17,20 @@ const mapStateToProps = (state: StoreState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         loadWallets: () => loadWallets()(dispatch),
-        setFavorite: (address: string, value: boolean) => setFavorite(address, value)(dispatch)
-        // editUser: (user: User, image: File | null) => editUser(user, image)(dispatch)
+        setFavorite: (address: string, value: boolean) => setFavorite(address, value)(dispatch),
+        setSelected: (address: string) => setSelected(address)(dispatch)
     }
 }
 
 interface Payload {
     wallets: UserWallet[],
     loadWallets: Function,
-    setFavorite: (address: string, value: boolean) => void
+    setFavorite: (address: string, value: boolean) => void,
+    setSelected: (address: string) => void
 }
 
 export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
-    ({ wallets, loadWallets, setFavorite }: Payload) => {
+    ({ wallets, loadWallets, setFavorite, setSelected }: Payload) => {
 
         useEffect(() => {
             loadWallets()
@@ -56,7 +57,7 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
                     <Grid.Column>
                         <List selection  >
                             {wallets.map(wallet =>
-                                <List.Item active={wallet.selected}>
+                                <List.Item active={wallet.selected} onClick={() => setSelected(wallet.address)}>
                                     <List.Icon name='ethereum' size='large' verticalAlign='middle' />
                                     <List.Content >
                                         <WalletCard

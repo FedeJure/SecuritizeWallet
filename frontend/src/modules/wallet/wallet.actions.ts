@@ -23,3 +23,13 @@ export const setFavorite = (address: string, value: boolean) => {
     });
   };
 };
+
+
+export const setSelected = (address: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: "SET_SELECTED",
+      address,
+    });
+  };
+}

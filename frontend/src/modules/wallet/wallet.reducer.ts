@@ -22,6 +22,11 @@ export const wallet = (
           w.address === action.address ? { ...w, favorite: action.value } : w
         ),
       };
+    case "SET_SELECTED":
+      return {
+        ...state,
+        selected: action.address
+      }
     default:
       return state;
   }
