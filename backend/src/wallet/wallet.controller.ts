@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { WalletService } from './wallet.service';
 import { CreateWalletDTO } from './dto/create-wallet.dto';
+import { UpdateWalletDTO } from './dto/update-wallet.dto';
 
 @Controller('wallet')
 export class WalletController {
@@ -45,12 +46,10 @@ export class WalletController {
   @Put('/update')
   async updateWallet(
     @Res() res,
-    @Query('walletID') walletID,
-    @Body() createWalletDTO: CreateWalletDTO,
+    @Body() updateWalletDTO: UpdateWalletDTO,
   ) {
     const wallet = await this.walletService.updateWallet(
-      walletID,
-      createWalletDTO,
+      updateWalletDTO,
     );
     if (!wallet) throw new NotFoundException('Wallet does not exist!');
     return res.status(HttpStatus.OK).json({

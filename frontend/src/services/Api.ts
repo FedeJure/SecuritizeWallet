@@ -11,14 +11,23 @@ export const getTransactionsOfWallet = async (address: string) => {};
 
 export const getSavedWallets = async (): Promise<Wallet[]> => {
   return fetch(`${url}/wallet/wallets`)
-  .then(handleError)
-  .then((response) => response.json());
+    .then(handleError)
+    .then((response) => response.json());
 };
 
 export const updateWalletFavorite = async (
   address: string,
-  value: boolean
-): Promise<any> => {};
+  favorite: boolean
+): Promise<any> => {
+  const options = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ address, favorite }),
+  };
+  return fetch(`${url}/wallet/update`, options)
+    .then(handleError)
+    .then((response) => response.json());
+};
 
 export const createWallet = async (address: string): Promise<any> => {
   const options = {
