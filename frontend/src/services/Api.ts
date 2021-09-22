@@ -1,6 +1,37 @@
 import { Wallet } from "../modules/wallet/Wallet";
 
+const etherscanApi = "https://api.etherscan.io/api";
+const etherscanApiKey = "NSZCD6S4TKVWRS13PMQFMVTNP6H7NAGHUY";
+
 export const getTransactionsOfWallet = async (address: string) => {};
+
+//Move this to backend
+export const getBalances = async (addresses: string[]) => {
+  return fetch(
+    `${etherscanApi}` +
+      "?module=account" +
+      "&action=balancemulti" +
+      `&address=${addresses.join(",")}` +
+      "&tag=latest" +
+      `&apikey=${etherscanApiKey}`
+  ).then((response) => response.json());
+};
+
+//Move this to backend
+export const getTransactions = async (address: string) => {
+  return fetch(
+    `${etherscanApi}` +
+      "?module=account" +
+      "&action=txlist" +
+      `&address=${address}` +
+      `&startblock=0` +
+      `&endblock=99999999` +
+      `&page=1` +
+      `&offset=10` +
+      `&sort=asc` +
+      `&apikey=${etherscanApiKey}`
+  ).then((response) => response.json());
+};
 
 export const getSavedWallets = async (): Promise<Wallet[]> => {
   return [
@@ -22,13 +53,9 @@ export const getSavedWallets = async (): Promise<Wallet[]> => {
 export const updateWalletFavorite = async (
   address: string,
   value: boolean
-): Promise<any> => {
+): Promise<any> => {};
 
+export const createWallet = async (address: string): Promise<any> => {
+  const balances = await getBalances([address])
+  console.log(balances)
 };
-
-export const createWallet = async (
-    address: string
-  ): Promise<any> => {
-  
-  };
-  
