@@ -18,9 +18,10 @@ export const WalletCard = ({ address, favorite, onSetFavorite, old }: Payload) =
                 circular
                 color={favorite ? "orange" : undefined}
                 compact />
-            <Card.Header content={address} />
+            <Card.Header >
+                <h3 style={{textOverflow: "ellipsis"}}>{address}</h3>
+            </Card.Header>
             {old && <Card.Meta content="Old" />}
-            <Card.Description content='Jake is a drummer living in New York.' />
         </Card.Content>
     </Card>
 )
