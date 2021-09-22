@@ -9,18 +9,13 @@ import {
   Query,
   NotFoundException,
   Delete,
-  HttpService,
 } from '@nestjs/common';
 import { WalletService } from './wallet.service';
 import { CreateWalletDTO } from './dto/create-wallet.dto';
-import { EtherscanService } from 'src/etherscan/etherscan.service';
 
 @Controller('wallet')
 export class WalletController {
-
-
-  constructor(private walletService: WalletService) {
-  }
+  constructor(private walletService: WalletService) {}
 
   // Retrieve wallets list
   @Get('wallets')
