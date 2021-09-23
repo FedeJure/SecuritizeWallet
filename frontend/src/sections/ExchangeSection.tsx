@@ -43,11 +43,10 @@ export const ExchangeSection = connect(mapStateToProps, mapDispatchToProps)(
         }
 
         const handleChange = (value: string) => {
-            try {
-                const numberValue = parseFloat(value)
-                if (dollarSelected && numberValue !== dollarRate) setDollarRate(numberValue)
-                else if (numberValue !== euroRate) setEuroRate(numberValue)
-            } catch (error) {  }
+            const numberValue = parseFloat(value) || 0
+            if (dollarSelected && numberValue !== dollarRate) setDollarRate(numberValue)
+            else if (!dollarSelected && numberValue !== euroRate) setEuroRate(numberValue)
+
         }
 
         return <div style={{ alignItems: "center", display: "flex" }}>
