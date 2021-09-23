@@ -4,6 +4,7 @@ import { WalletState } from "./WalletState";
 const initialState: WalletState = {
   wallets: [],
   selected: null,
+  loading: false
 };
 
 export const wallet = (
@@ -37,6 +38,11 @@ export const wallet = (
         ...state,
         selected: action.address,
       };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.loading
+      }
     default:
       return state;
   }
@@ -54,7 +60,6 @@ const processWallet = (wallet: Wallet, selectedWallet: string | null) => {
   const oneYearAgoTime = now.setFullYear(now.getFullYear() - 1);
   return {
     ...wallet,
-    selected: selectedWallet === wallet.address,
     old:
       wallet.firstTransaction !== null &&
       wallet.firstTransaction.timeStamp < oneYearAgoTime,

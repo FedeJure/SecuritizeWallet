@@ -1,4 +1,4 @@
-import { Container, Grid, Menu, Segment } from "semantic-ui-react"
+import { Container, Grid, Menu } from "semantic-ui-react"
 import { ExchangeSection } from "../../sections/ExchangeSection"
 import { WalletBalanceSection } from "../../sections/WalletBalanceSection"
 import { WalletSection } from "../../sections/WalletSection"
@@ -11,16 +11,15 @@ const Home = () => {
         <ExchangeSection />
       </Container>
     </Menu>
-    <Grid columns={1}>
-      <Grid.Row stretched style={{ marginTop: headerHeight }} columns={2}>
-        <Grid.Column>
-          <Segment style={{ width: "fit-content" }}><WalletSection /></Segment>
-        </Grid.Column>
-        <Grid.Column>
-          <Segment><WalletBalanceSection /></Segment>
-        </Grid.Column>
-      </Grid.Row>
-
+    <Grid columns={1} style={{  height: "100%" }}>
+      <Grid.Column>
+        <Grid.Row style={{ marginTop: headerHeight, }} >
+          <WalletSection />
+        </Grid.Row>
+        <Grid.Row stretched>
+          <WalletBalanceSection />
+        </Grid.Row>
+      </Grid.Column>
     </Grid>
   </>
 }

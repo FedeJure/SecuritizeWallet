@@ -7,6 +7,10 @@ import {
 
 export const loadWallets = () => {
   return (dispatch: Dispatch) => {
+    dispatch({
+      type: "SET_LOADING",
+      loading: true,
+    });
     getSavedWallets()
       .then((wallets) => {
         dispatch({
@@ -14,21 +18,36 @@ export const loadWallets = () => {
           wallets,
         });
       })
-      .catch((error) => alert(error));
+      .catch((error) => alert(error))
+      .finally(() => {
+        dispatch({
+          type: "SET_LOADING",
+          loading: false,
+        });
+      });
   };
 };
 
 export const saveWallet = (address: string) => {
   return (dispatch: Dispatch) => {
+    dispatch({
+      type: "SET_LOADING",
+      loading: true,
+    });
     createWallet(address)
-      .then(({wallet}) => {
-        console.log(wallet)
+      .then(({ wallet }) => {
         dispatch({
           type: "ADD_WALLET",
           wallet,
         });
       })
-      .catch((error) => alert(error));
+      .catch((error) => alert(error))
+      .finally(() => {
+        dispatch({
+          type: "SET_LOADING",
+          loading: false,
+        });
+      });
   };
 };
 
