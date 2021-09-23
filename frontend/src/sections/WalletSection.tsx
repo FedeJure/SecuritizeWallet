@@ -80,7 +80,7 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
 
                     <Grid.Column>
                         <Grid.Row >
-                            <Label icon style={{ justifyContent: "center" }}>
+                            <Label style={{ justifyContent: "center" }}>
 
                                 <header>Order by...<Icon name='long arrow alternate down'></Icon></header>
                                 <Dropdown selection clearable options={tagOptions} onChange={(e, v) => {

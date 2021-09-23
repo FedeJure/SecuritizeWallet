@@ -82,7 +82,7 @@ export class WalletController {
       address: w.address,
       favorite: w.favorite,
       balance: infos[i].balance,
-      lastTransaction: infos[i].lastTransaction,
+      firstTransaction: infos[i].firstTransaction,
     }));
   }
 }

@@ -22,7 +22,7 @@ export class EtherscanService {
       .pipe(map(response => response.data));
   };
 
-  getLastTransaction = (address: string) => {
+  getFirstTransaction = (address: string) => {
     return this.http
       .get(
         `${etherscanApi}` +
@@ -45,7 +45,7 @@ export class EtherscanService {
     );
 
     const transactionsObservable = from(addresses)
-      .pipe(flatMap(w => this.getLastTransaction(w)))
+      .pipe(flatMap(w => this.getFirstTransaction(w)))
       .pipe(map(res => res.result))
       .pipe(concatMap(r => r))
       .pipe(toArray());
@@ -56,7 +56,7 @@ export class EtherscanService {
         return addresses.map((w, i) => ({
           address: w,
           balance: mappedBalances[i],
-          lastTransaction: transactions[i] || null,
+          firstTransaction: transactions[i] || null,
         }))
       }),
     );

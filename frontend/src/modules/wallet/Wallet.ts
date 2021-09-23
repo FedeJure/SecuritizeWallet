@@ -6,5 +6,5 @@ export interface Wallet {
     selected: boolean,
     old: boolean,
     balance: number,
-    lastTransaction: Transaction | null
+    firstTransaction: Transaction | null
 }

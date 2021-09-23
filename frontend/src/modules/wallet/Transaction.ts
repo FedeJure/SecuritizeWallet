@@ -1,6 +1,6 @@
 export interface Transaction {
   blockNumber: string;
-  timeStamp: string;
+  timeStamp: number;
   hash: string;
   nonce: string;
   blockHash: string;
