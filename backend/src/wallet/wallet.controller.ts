@@ -54,7 +54,7 @@ export class WalletController {
     if (!wallet) throw new NotFoundException('Wallet does not exist!');
     return res.status(HttpStatus.OK).json({
       message: 'Wallet has been successfully updated',
-      wallet: await this.addInfoToWallet(wallet),
+      wallet,
     });
   }
 

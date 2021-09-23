@@ -8,7 +8,6 @@ interface Payload {
 }
 
 export const WalletCard = ({ address, favorite, onSetFavorite, old }: Payload) => (
-
     <Card centered >
         <Card.Content textAlign="center">
             <Button

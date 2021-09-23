@@ -8,3 +8,7 @@ export const getUserWallets = (store: StoreState): Wallet[] => {
 export const getLoading = (store: StoreState): boolean => {
   return store.wallet.loading
 }
+
+export const getSelectedWallet = (store: StoreState): Wallet | undefined => {
+  return store.wallet.wallets.find(w => w.address === store.wallet.selected)
+}

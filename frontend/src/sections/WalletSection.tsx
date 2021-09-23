@@ -62,34 +62,33 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
 
         return <>
             <Grid columns={1} divided>
-                    <Container>
-                            <Form onSubmit={() => handleAdd()}>
-                                <Form.Field style={{ display: "flex", justifyContent: "center" }}>
-                                    <Input disabled={loading} onChange={(v) => setWalletAddress(v.currentTarget.value)} placeholder='Wallet address' style={{ width: "100%" }} />
-                                    <Button disabled={loading} primary animated="vertical" type='submit'>
-                                        <Button.Content hidden>Add</Button.Content>
-                                        <Button.Content visible>
-                                            <Icon name='plus circle' size="big" style={{ margin: "0" }} />
-                                        </Button.Content>
-                                    </Button>
-                                    <Label size="tiny" style={{ justifyContent: "center" }}>
-                                        <header>Order by...<Icon name='long arrow alternate down'></Icon></header>
-                                        <Dropdown  selection clearable options={tagOptions} onChange={(e, v) => {
-                                            setOrder(v.value ? v.value as string : null)
-                                        }} />
-                                    </Label>
-                                </Form.Field>
-                            </Form>
-                    </Container>
-
-
+                <Container>
+                    <Form onSubmit={() => handleAdd()}>
+                        <Form.Field style={{ display: "flex", justifyContent: "center" }}>
+                            <Input
+                                action={{
+                                    color: 'teal',
+                                    labelPosition: 'right',
+                                    icon: 'plus',
+                                    content: 'Add',                                    
+                                }}
+                            
+                                disabled={loading}
+                                onChange={(v) => setWalletAddress(v.currentTarget.value)}
+                                placeholder='Wallet address'
+                                style={{ width: "100%" }} />
+                        </Form.Field>
+                        <Label style={{ justifyContent: "center" }}>
+                                <header>Order by...<Icon name='long arrow alternate down'></Icon></header>
+                                <Dropdown selection clearable options={tagOptions} onChange={(e, v) => {
+                                    setOrder(v.value ? v.value as string : null)
+                                }} />
+                            </Label>
+                    </Form>
+                </Container>
                 <Grid.Row>
-
                     <Grid.Column>
                         <Grid.Row >
-
-
-
                         </Grid.Row>
                         <CardGroup centered selection style={{ overflowY: "auto", maxHeight: "25em" }}>
                             {loading && <Dimmer active inverted >
@@ -99,7 +98,8 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
                                 <Card color={wallet.selected ? "yellow" : undefined} style={{ width: "fit-content" }} key={wallet.address} onClick={() => setSelected(wallet.address)}>
 
                                     <Card.Content >
-                                        <Icon name='ethereum' size='large' verticalAlign='middle' />
+                                        <Icon name='ethereum' color={wallet.selected? "blue" : "black"} size='large' verticalAlign='middle' />
+                                        Ethereum Wallet
                                         <WalletCard
                                             address={wallet.address}
                                             favorite={wallet.favorite}
