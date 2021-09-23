@@ -1,15 +1,15 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { map } from 'rxjs/operators';
+import { from, zip } from 'rxjs';
+import { concatMap, flatMap, map, toArray } from 'rxjs/operators';
 
 const etherscanApi = 'https://api.etherscan.io/api';
 const etherscanApiKey = 'NSZCD6S4TKVWRS13PMQFMVTNP6H7NAGHUY';
 
 @Injectable()
 export class EtherscanService {
-  constructor(private http: HttpService) {
-  }
+  constructor(private http: HttpService) {}
 
-  getBalances = async (addresses: string[]) => {
+  getBalances = (addresses: string[]) => {
     return this.http
       .get(
         `${etherscanApi}` +
@@ -22,7 +22,7 @@ export class EtherscanService {
       .pipe(map(response => response.data));
   };
 
-  getTransactions = async (address: string) => {
+  getLastTransaction = (address: string) => {
     return this.http
       .get(
         `${etherscanApi}` +
@@ -32,10 +32,33 @@ export class EtherscanService {
           `&startblock=0` +
           `&endblock=99999999` +
           `&page=1` +
-          `&offset=10` +
+          `&offset=1` +
           `&sort=asc` +
           `&apikey=${etherscanApiKey}`,
       )
       .pipe(map(response => response.data));
+  };
+
+  getInfos = (addresses: string[]) => {
+    const balancesObservable = this.getBalances(addresses).pipe(
+      map(res => res.result),
+    );
+
+    const transactionsObservable = from(addresses)
+      .pipe(flatMap(w => this.getLastTransaction(w)))
+      .pipe(map(res => res.result))
+      .pipe(concatMap(r => r))
+      .pipe(toArray());
+
+    return zip(balancesObservable, transactionsObservable).pipe(
+      map(([balances, transactions]) => {
+        const mappedBalances = balances.map(b => b.balance || 0);
+        return addresses.map((w, i) => ({
+          address: w,
+          balance: mappedBalances[i],
+          lastTransaction: transactions[i] || null,
+        }))
+      }),
+    );
   };
 }

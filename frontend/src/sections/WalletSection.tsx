@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { Button, Dropdown, Label, Form, Grid, Icon, List, Input } from "semantic-ui-react"
 import { WalletCard } from "../components/WalletCard"
-import { UserWallet } from "../modules/wallet/UserWallet"
+import { Wallet } from "../modules/wallet/Wallet"
 import { loadWallets, saveWallet, setFavorite, setSelected } from "../modules/wallet/wallet.actions"
 import { getUserWallets } from "../modules/wallet/wallet.selectors"
 import { StoreState } from "../store"
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 }
 
 interface Payload {
-    wallets: UserWallet[],
+    wallets: Wallet[],
     loadWallets: Function,
     setFavorite: (address: string, value: boolean) => void,
     setSelected: (address: string) => void,

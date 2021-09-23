@@ -1,10 +1,6 @@
 import { StoreState } from "../../store";
-import { UserWallet } from "./UserWallet";
+import { Wallet } from "./Wallet";
 
-export const getUserWallets = (store: StoreState): UserWallet[] => {
-  return store.wallet.wallets.map((w) => ({
-    ...w,
-    selected: w.address === store.wallet.selected,
-    old: false //refactor this
-  }));
+export const getUserWallets = (store: StoreState): Wallet[] => {
+  return store.wallet.wallets
 };

@@ -9,6 +9,7 @@ export const loadWallets = () => {
   return (dispatch: Dispatch) => {
     getSavedWallets()
       .then((wallets) => {
+        console.log(wallets)
         dispatch({
           type: "SET_WALLETS",
           wallets,
