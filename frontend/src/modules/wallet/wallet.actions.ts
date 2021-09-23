@@ -21,13 +21,11 @@ export const loadWallets = () => {
 export const saveWallet = (address: string) => {
   return (dispatch: Dispatch) => {
     createWallet(address)
-      .then(() => {
+      .then(({wallet}) => {
+        console.log(wallet)
         dispatch({
           type: "ADD_WALLET",
-          wallet: {
-            address,
-            favorite: false,
-          },
+          wallet,
         });
       })
       .catch((error) => alert(error));

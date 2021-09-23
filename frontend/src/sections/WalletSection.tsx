@@ -90,9 +90,9 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
 
 
                         </Grid.Row>
-                        <List selection  style={{overflowY: "auto", maxHeight: "50em"}}>
+                        <List selection style={{overflowY: "auto", maxHeight: "50em"}}>
                             {(order ? [...wallets].sort((w1, w2) => w1.favorite ? -1 : 1) : [...wallets].sort()).map(wallet =>
-                                <List.Item key={wallet.address} active={wallet.selected} onClick={() => setSelected(wallet.address)}>
+                                <List.Item style={{width: "fit-content"}} key={wallet.address} active={wallet.selected} onClick={() => setSelected(wallet.address)}>
                                     <List.Icon name='ethereum' size='large' verticalAlign='middle' />
                                     <List.Content >
                                         <WalletCard

@@ -1,5 +1,5 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { from, zip } from 'rxjs';
+import { from, observable, Observable, zip } from 'rxjs';
 import { concatMap, flatMap, map, toArray } from 'rxjs/operators';
 
 const etherscanApi = 'https://api.etherscan.io/api';
@@ -40,6 +40,7 @@ export class EtherscanService {
   };
 
   getInfos = (addresses: string[]) => {
+    if (addresses.length === 0) return from([]);
     const balancesObservable = this.getBalances(addresses).pipe(
       map(res => res.result),
     );
@@ -57,7 +58,7 @@ export class EtherscanService {
           address: w,
           balance: mappedBalances[i],
           firstTransaction: transactions[i] || null,
-        }))
+        }));
       }),
     );
   };

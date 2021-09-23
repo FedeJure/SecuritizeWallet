@@ -70,7 +70,7 @@ export class WalletController {
   }
 
   async addInfoToWallet(wallet: Wallet) {
-    return this.addInfoToWallets([wallet])[0];
+    return (await this.addInfoToWallets([wallet]))[0];
   }
 
   async addInfoToWallets(wallets: Wallet[]) {

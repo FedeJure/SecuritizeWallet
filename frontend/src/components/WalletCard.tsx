@@ -9,7 +9,7 @@ interface Payload {
 
 export const WalletCard = ({ address, favorite, onSetFavorite, old }: Payload) => (
 
-    <Card fluid>
+    <Card centered style={{minWidth: "30em"}}>
         <Card.Content textAlign="center">
             <Button
                 onClick={(e) => {
@@ -22,7 +22,7 @@ export const WalletCard = ({ address, favorite, onSetFavorite, old }: Payload) =
                 color={favorite ? "orange" : undefined}
                 compact />
             <Card.Header >
-                <h3 style={{textOverflow: "ellipsis"}}>{address}</h3>
+                <h3 style={{wordBreak: "break-all"}}>{address}</h3>
             </Card.Header>
             {old && <Card.Meta content="Old" />}
         </Card.Content>
