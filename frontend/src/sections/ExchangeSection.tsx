@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { Button, Form, Input } from "semantic-ui-react"
+import { Button, Container, Form, Input, Label } from "semantic-ui-react"
 import { loadRatesAction, setDollarRate, setEuroRate } from "../modules/exchanger/exchange.actions";
 import { getDollarRate, getEuroRate } from "../modules/exchanger/exchange.selectors";
 import { StoreState } from "../store";
@@ -51,16 +51,18 @@ export const ExchangeSection = connect(mapStateToProps, mapDispatchToProps)(
 
         return <div style={{ alignItems: "center", display: "flex" }}>
             <Form>
-                <Form.Field inline style={{ alignItems: "center", display: "flex" }}>
-                    <span style={numberStyle}>1 ETH</span>
-                    <span style={numberStyle}> = </span>
+                <Form.Field inline >                  
                     <Input
                         type="number"
                         onChange={(e, v) => handleChange(v.value)}
                         value={dollarSelected ? dollarRate : euroRate}
                         labelPosition="right"
-                        label={{ basic: true, content: dollarSelected ? '$' : "€", }}
-                        style={{ marginRight: "1em" }} />
+                        label
+                        style={{ marginRight: "1em" }} >
+                            <Label >1 ETH = </Label>
+                            <input />
+                            <Label basic>{dollarSelected ? '$' : "€"}</Label>
+                        </Input>
                     <Button.Group>
                         <Button
                             onClick={() => setDollarSelected(true)}
@@ -73,10 +75,12 @@ export const ExchangeSection = connect(mapStateToProps, mapDispatchToProps)(
                             primary={!dollarSelected}
                             icon="euro"></Button>
                     </Button.Group>
+                    <Button onClick={handleRestore} style={{ marginLeft: "3em" }} circular floated="right" inverted >Restore rates</Button>
                 </Form.Field>
+                
             </Form>
 
-            <Button onClick={handleRestore} style={{ marginLeft: "3em" }} circular icon="redo" inverted />
+            
 
         </div>
     })

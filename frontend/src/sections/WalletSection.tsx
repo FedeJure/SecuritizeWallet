@@ -70,20 +70,19 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
                                     color: 'teal',
                                     labelPosition: 'right',
                                     icon: 'plus',
-                                    content: 'Add',                                    
+                                    content: 'Add',
                                 }}
-                            
+
                                 disabled={loading}
                                 onChange={(v) => setWalletAddress(v.currentTarget.value)}
                                 placeholder='Wallet address'
                                 style={{ width: "100%" }} />
                         </Form.Field>
-                        <Label style={{ justifyContent: "center" }}>
-                                <header>Order by...<Icon name='long arrow alternate down'></Icon></header>
-                                <Dropdown selection clearable options={tagOptions} onChange={(e, v) => {
-                                    setOrder(v.value ? v.value as string : null)
-                                }} />
-                            </Label>
+                        <Label style={{ justifyContent: "center" }} ribbon>
+                            <Dropdown placeholder="Order by" selection clearable options={tagOptions} onChange={(e, v) => {
+                                setOrder(v.value ? v.value as string : null)
+                            }} />
+                        </Label>
                     </Form>
                 </Container>
                 <Grid.Row>
@@ -98,7 +97,7 @@ export const WalletSection = connect(mapStateToProps, mapDispatchToProps)(
                                 <Card color={wallet.selected ? "yellow" : undefined} style={{ width: "fit-content" }} key={wallet.address} onClick={() => setSelected(wallet.address)}>
 
                                     <Card.Content >
-                                        <Icon name='ethereum' color={wallet.selected? "blue" : "black"} size='large' verticalAlign='middle' />
+                                        <Icon name='ethereum' color={wallet.selected ? "blue" : "black"} size='large' verticalAlign='middle' />
                                         Ethereum Wallet
                                         <WalletCard
                                             address={wallet.address}

@@ -1,27 +1,34 @@
-import { Container, Divider, Grid, Menu } from "semantic-ui-react"
+import { useState } from "react"
+import { Container, Divider, Grid, Image, Menu, Visibility } from "semantic-ui-react"
 import { ExchangeSection } from "../../sections/ExchangeSection"
 import { WalletBalanceSection } from "../../sections/WalletBalanceSection"
 import { WalletSection } from "../../sections/WalletSection"
 
 const Home = () => {
-  const headerHeight = "5em"
+  const [mobile, setMobile] = useState(false)
   return <>
-    <Menu fixed='top' inverted>
-      <Container style={{ height: headerHeight, display: "flex", flexDirection: "row-reverse" }}>
-        <ExchangeSection />
-      </Container>
-    </Menu>
-    <Grid container columns={1} style={{  height: "100%" }}>
-      <Grid.Column>
-        <Grid.Row style={{ marginTop: headerHeight, }} >
-          <WalletSection />
-        </Grid.Row>
-        <Divider hidden></Divider>
-        <Grid.Row >
-          <WalletBalanceSection />
-        </Grid.Row>
-      </Grid.Column>
-    </Grid>
+    <Visibility onUpdate={(_, { calculations }) => { setMobile(calculations.width <= 525) }}>
+      <Menu inverted>
+
+        {!mobile &&<Container><Image spaced src="https://securitize.io/dist/img/securitize-logo.svg" inline size="medium" /></Container>}
+
+        <Container style={{ minHeight: "5em", display: "flex", flexDirection: "row-reverse" }}>
+          <ExchangeSection />
+        </Container>
+      </Menu>
+      <Grid container columns={1} style={{ height: "100%" }}>
+        <Grid.Column>
+          <Grid.Row >
+            <Divider hidden />
+            <WalletSection />
+          </Grid.Row>
+          <Divider hidden></Divider>
+          <Grid.Row >
+            <WalletBalanceSection />
+          </Grid.Row>
+        </Grid.Column>
+      </Grid>
+    </Visibility>
   </>
 }
 
