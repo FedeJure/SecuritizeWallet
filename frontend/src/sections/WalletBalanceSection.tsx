@@ -85,11 +85,9 @@ export const WalletBalanceSection = connect(mapStateToProps, mapDispatchToProps)
                             {currency === Currency.DOLLAR ?
                                 <Statistic size="tiny">
                                     <Statistic.Value>$ {selectedWallet.balance * dollarRate}</Statistic.Value>
-                                    <Statistic.Label>USD</Statistic.Label>
                                 </Statistic> :
                                 <Statistic size="tiny">
                                     <Statistic.Value>€ {selectedWallet.balance * euroRate}</Statistic.Value>
-                                    <Statistic.Label>EUR</Statistic.Label>
                                 </Statistic>
                             }
                         </Segment>
